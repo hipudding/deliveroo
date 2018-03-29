@@ -1,0 +1,6 @@
+cn/hipuding/deliveroo/entity/User.class
+cn/hipuding/deliveroo/controller/UserController.class
+cn/hipuding/deliveroo/dao/BaseDao.class
+cn/hipuding/deliveroo/dao/UserDao.class
+cn/hipuding/deliveroo/Application.class
+cn/hipuding/deliveroo/service/UserService.class
