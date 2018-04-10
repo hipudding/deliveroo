@@ -14,10 +14,10 @@ public class UserInterceptor implements HandlerInterceptor {
             throws Exception {
 
         HttpSession session = request.getSession(true);
-        Object userName = session.getAttribute("userName");
+        Object userId = session.getAttribute("userId");
 
 
-        if(userName == null)
+        if(userId == null)
         {
             String serverAddr = request.getRequestURL().toString();
             serverAddr = serverAddr.substring(0,serverAddr.indexOf('/', 8));

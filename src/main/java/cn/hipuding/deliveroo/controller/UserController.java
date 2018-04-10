@@ -1,31 +1,17 @@
 package cn.hipuding.deliveroo.controller;
 
-import cn.hipuding.deliveroo.entity.User;
-import cn.hipuding.deliveroo.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-@RestController
+@Controller
 public class UserController {
 
-    @Autowired
-    UserService userService;
 
-    @RequestMapping(value = "register", method = RequestMethod.POST)
-    public void register(@RequestBody User user){
-        userService.saveUser(user);
+    @RequestMapping(value = "/user/login", method = RequestMethod.GET)
+    public String login(){
+        return "userLogin";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String main(){
-        return "Hello World!";
-    }
-
-
-
-    @RequestMapping(value = "doLogin", method = RequestMethod.POST)
-    public String doLogin(@RequestBody User user){
-        return userService.checkUserPassword(user.getId(), user.getPassword()) ? "OK" : "ERROR";
-    }
 
 }
