@@ -21,8 +21,10 @@ public class UserController {
         return "Hello World!";
     }
 
-    @RequestMapping(value = "check", method = RequestMethod.POST)
-    public String check(@RequestBody User user){
+
+
+    @RequestMapping(value = "doLogin", method = RequestMethod.POST)
+    public String doLogin(@RequestBody User user){
         return userService.checkUserPassword(user.getId(), user.getPassword()) ? "OK" : "ERROR";
     }
 
