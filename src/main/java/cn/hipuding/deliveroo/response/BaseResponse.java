@@ -3,7 +3,7 @@ package cn.hipuding.deliveroo.response;
 public class BaseResponse {
     int code;
 
-    String resion;
+    String reason;
 
     public int getCode() {
         return code;
@@ -13,12 +13,12 @@ public class BaseResponse {
         this.code = code;
     }
 
-    public String getResion() {
-        return resion;
+    public String getReason() {
+        return reason;
     }
 
-    public void setResion(String resion) {
-        this.resion = resion;
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
 }

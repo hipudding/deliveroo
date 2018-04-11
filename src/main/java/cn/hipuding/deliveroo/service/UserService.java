@@ -17,13 +17,15 @@ public class UserService {
         userDao.saveOrUpdate(user);
     }
 
-    public boolean checkUserPassword(int id, String password){
-        User user = userDao.findById(id);
+    public boolean checkUserPassword(String userName, String password){
+        User user = userDao.findById(userName);
+        if(user == null)
+            return false;
         return user.getPassword().equals(password);
     }
 
-    public User getUser(int id){
-        return userDao.findById(id);
+    public User getUser(String userName){
+        return userDao.findById(userName);
     }
 
 }

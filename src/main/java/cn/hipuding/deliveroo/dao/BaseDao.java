@@ -34,7 +34,7 @@ public class BaseDao<T> {
         sessionFactory.getCurrentSession().update(entity);
     }
 
-    public void delete(int id) {
+    public void delete(String id) {
         sessionFactory.getCurrentSession().delete(findById(id));
     }
 
@@ -43,8 +43,12 @@ public class BaseDao<T> {
         sessionFactory.getCurrentSession().delete(entity);
     }
 
-    public T findById(int id) {
+    public T findById(String id) {
         return (T) sessionFactory.getCurrentSession().get(clazz,id);
+    }
+
+    public List<T> findAll(){
+        return findByHQL("from "+clazz.getSimpleName().toLowerCase());
     }
 
     public List<T> findByHQL(String hql, Object... params) {

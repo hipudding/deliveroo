@@ -36,26 +36,26 @@ public class UserRestController {
         userService.saveUser(user);
         BaseResponse ret = new BaseResponse();
         ret.setCode(ResponseCodeEnum.OK.getCode());
-        ret.setResion(ResponseCodeEnum.OK.getDesc());
+        ret.setReason(ResponseCodeEnum.OK.getDesc());
         return ret;
     }
 
 
     @RequestMapping(value = "/user/doLogin", method = RequestMethod.POST)
     public BaseResponse doLogin(@RequestBody User user, HttpServletRequest request){
-        boolean checkPWD = userService.checkUserPassword(user.getId(), user.getPassword());
+        boolean checkPWD = userService.checkUserPassword(user.getUserName(), user.getPassword());
         BaseResponse ret = new BaseResponse();
         if(checkPWD == true)
         {
             HttpSession session = request.getSession(true);
-            session.setAttribute("userId",user.getId());
+            session.setAttribute("userName",user.getUserName());
             ret.setCode(ResponseCodeEnum.OK.getCode());
-            ret.setResion(ResponseCodeEnum.OK.getDesc());
+            ret.setReason(ResponseCodeEnum.OK.getDesc());
         }
         else
         {
             ret.setCode(ResponseCodeEnum.PWDERROR.getCode());
-            ret.setResion(ResponseCodeEnum.PWDERROR.getDesc());
+            ret.setReason(ResponseCodeEnum.PWDERROR.getDesc());
         }
         return ret;
     }
@@ -84,12 +84,5 @@ public class UserRestController {
     public BaseResponse cart(@RequestBody User user, HttpServletRequest request){
         return new BaseResponse();
     }
-
-    @RequestMapping(value = "/user/info", method = RequestMethod.POST)
-    public BaseResponse info(@RequestBody User user, HttpServletRequest request){
-        return new BaseResponse();
-    }
-
-
 
 }
