@@ -85,16 +85,16 @@
                             <!-- /input-group -->
                         </li>
                         <li class="active">
-                            <a href="userInfo.html" class="active"><i class="fa fa-dashboard fa-fw"></i>个人信息</a>
+                            <a href="/user/userInfo" class="active"><i class="fa fa-dashboard fa-fw"></i>个人信息</a>
                         </li>
                         <li>
-                            <a href="orderInfo.html"><i class="fa fa-bar-chart-o fa-fw"></i>订单详情</a>
+                            <a href="/user/orderInfo"><i class="fa fa-bar-chart-o fa-fw"></i>订单详情</a>
                         </li>
                         <li>
-                            <a href="footPlant.html"><i class="fa fa-table fa-fw"></i>美食广场</a>
+                            <a href="/user/foodPlant"><i class="fa fa-table fa-fw"></i>美食广场</a>
                         </li>
                         <li>
-                            <a href="shoppingCart.html"><i class="fa fa-edit fa-fw"></i>购物车</a>
+                            <a href="/user/shoppingCart"><i class="fa fa-edit fa-fw"></i>购物车</a>
                         </li>
                     </ul>
                 </div>
@@ -118,16 +118,16 @@
                         </div>
                         <div class="panel-body">
                             <div class="alert alert-info">
-                                账号：<a class="alert-link" th:text = "${user.userName}">张嘉琪</a>
+                                账号：<a class="alert-link" th:text = "${response.user.userName}">张嘉琪</a>
                             </div>
                             <div class="alert alert-info">
-                                余额：<a class="alert-link" th:text = "${user.balance}">152</a>
+                                余额：<a class="alert-link" th:text = "${response.user.account}">152</a>
                             </div>
                             <div class="alert alert-info">
-                                电话：<a class="alert-link" th:text = "${user.phoneNumber}">18112345678</a>
+                                电话：<a class="alert-link" th:text = "${response.user.phoneNumber}">18112345678</a>
                             </div>
                             <div class="alert alert-info">
-                                地址：<a class="alert-link" th:text = "${user.address}">xxx楼xxx号x床</a>
+                                地址：<a class="alert-link" th:text = "${response.user.address}">xxx楼xxx号x床</a>
                             </div>
                         </div>
                     </div>

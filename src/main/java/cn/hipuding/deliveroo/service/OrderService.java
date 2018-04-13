@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Transactional
@@ -139,6 +136,8 @@ public class OrderService {
             return ret;
         }
 
+
+
         List<Order> orderList = new ArrayList<>();
         orderList.addAll(getOrderByUser(userName,OrderStatus.CANCLED));
         orderList.addAll(getOrderByUser(userName,OrderStatus.PENGDIN));
@@ -158,9 +157,23 @@ public class OrderService {
             }
         });
 
+        Map<String,List<Order>> orderMap = new HashMap<>();
+
+        for(Order order: orderList){
+            if(orderMap.containsKey(order.getOrderId())){
+                orderMap.get(order.getOrderId()).add(order);
+            }
+            else{
+                List<Order> tempList = new ArrayList<>();
+                tempList.add(order);
+                orderMap.put(order.getOrderId(),tempList);
+            }
+        }
+
         ret.setCode(ResponseCodeEnum.OK.getCode());
         ret.setReason(ResponseCodeEnum.OK.getDesc());
         ret.setOrderList(orderList);
+        ret.setOrderMap(orderMap);
         return ret;
     }
 

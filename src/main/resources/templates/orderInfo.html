@@ -84,17 +84,17 @@
                             </div>
                             <!-- /input-group -->
                         </li>
-                        <li class="active">
-                            <a href="userInfo.html" ><i class="fa fa-dashboard fa-fw"></i>个人信息</a>
+                        <li>
+                            <a href="/user/userInfo"><i class="fa fa-dashboard fa-fw"></i>个人信息</a>
                         </li>
                         <li>
-                            <a href="#" class="active"><i class="fa fa-bar-chart-o fa-fw"></i>订单详情</a>
+                            <a href="/user/orderInfo"  class="active"><i class="fa fa-bar-chart-o fa-fw"></i>订单详情</a>
                         </li>
                         <li>
-                            <a href="foodPlant.html"><i class="fa fa-table fa-fw"></i>美食广场</a>
+                            <a href="/user/foodPlant"><i class="fa fa-table fa-fw"></i>美食广场</a>
                         </li>
-                        <li>
-                            <a href="shoppingCart.html"><i class="fa fa-edit fa-fw"></i>购物车</a>
+                        <li  class="active">
+                            <a href="/user/shoppingCart" class="active"><i class="fa fa-edit fa-fw"></i>购物车</a>
                         </li>
                     </ul>
                 </div>
@@ -114,50 +114,34 @@
                 </div>
                 <!-- /.row -->
                 <div class="row">
-                <div class="col-lg-4">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
+                <div class="col-lg-12">
+                    <div th:each="orderInfo : ${response.orderMap}" class="panel panel-primary">
+                        <div class="panel-heading" th:text="${orderInfo.key}">
                             2018-1-1 13:52
                         </div>
                         <div class="panel-body">
-                            <p>麻辣粉：1</p>
-                            <p>肉夹馍：1</p>
-                            <p>冰峰：1</p>
-                        </div>
-                        <div class="panel-footer">
-                            金额：21
-                        </div>
-                    </div>
-                </div>
-                <!-- /.col-lg-4 -->
-                <div class="col-lg-4">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            2018-1-1 13:52
-                        </div>
-                        <div class="panel-body">
-                            <p>麻辣粉：1</p>
-                            <p>肉夹馍：1</p>
-                            <p>冰峰：1</p>
-                        </div>
-                        <div class="panel-footer">
-                            金额：21
-                        </div>
-                    </div>
-                </div>
-                <!-- /.col-lg-4 -->
-                <div class="col-lg-4">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            2018-1-1 13:52
-                        </div>
-                        <div class="panel-body">
-                            <p>麻辣粉：1</p>
-                            <p>肉夹馍：1</p>
-                            <p>冰峰：1</p>
-                        </div>
-                        <div class="panel-footer">
-                            金额：21
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>食物名称</th>
+                                        <th>商家名称</th>
+                                        <th>状态</th>
+                                        <th>价格</th>
+                                        <th>时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="food : ${orderInfo.value}">
+                                        <td th:text="${food.goodsName}">1</td>
+                                        <td th:text="${food.sellerName}">1</td>
+                                        <td th:text="${food.status}">1</td>
+                                        <td th:text="${food.price}">1</td>
+                                        <td th:text="${food.orderTime}">1</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

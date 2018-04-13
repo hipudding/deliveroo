@@ -84,17 +84,17 @@
                             </div>
                             <!-- /input-group -->
                         </li>
-                        <li class="active">
-                            <a href="userInfo.html" ><i class="fa fa-dashboard fa-fw"></i>个人信息</a>
+                        <li>
+                            <a href="/user/userInfo" class="active"><i class="fa fa-dashboard fa-fw"></i>个人信息</a>
                         </li>
                         <li>
-                            <a href="orderInfo.html"><i class="fa fa-bar-chart-o fa-fw"></i>订单详情</a>
+                            <a href="/user/orderInfo"><i class="fa fa-bar-chart-o fa-fw"></i>订单详情</a>
                         </li>
                         <li>
-                            <a href="foodPlant.html"><i class="fa fa-table fa-fw"></i>美食广场</a>
+                            <a href="/user/foodPlant"><i class="fa fa-table fa-fw"></i>美食广场</a>
                         </li>
-                        <li>
-                            <a  class="active"><i class="fa fa-edit fa-fw"></i>购物车</a>
+                        <li  class="active">
+                            <a href="/user/shoppingCart" class="active"><i class="fa fa-edit fa-fw"></i>购物车</a>
                         </li>
                     </ul>
                 </div>
@@ -115,17 +115,39 @@
                 <!-- /.row -->
                 <div class="row">
                 <!-- /.col-lg-4 -->
-                <div class="col-lg-4">
+                <div class="col-lg-8">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             您选择好的产品
                         </div>
-                        <div class="panel-body" id="foodInfo">
-                           <div class="form-group input-group">
-                                <input type="text" class="form-control" value="王华峰肉夹馍-麻辣粉">
-                            </div>
-                            <div class="form-group input-group">
-                                <input type="text" class="form-control" value="王华峰肉夹馍-肉夹馍">
+                        <div  class="panel-body" id="foodInfo">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    购物车
+                                </div>
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>食物名称</th>
+                                                <th>商家名称</th>
+                                                <th>价格</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="order : ${response.orderList}">
+                                                <td th:text="${order.goodsName}">1</td>
+                                                <td th:text="${order.sellerName}">1</td>
+                                                <td th:text="${order.price}">1</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.table-responsive -->
+                                </div>
+                                <!-- /.panel-body -->
                             </div>
                         </div>
                         <div class="form-group input-group">
@@ -159,52 +181,36 @@
     <script>
         function clearFoodInfo(obj){
             $("#foodInfo").empty();
-            var param = {};
-            param.userId = $(".userId").text();
-            // $.ajax({
-            //         url : "/user/clearShoppingCart",
-            //         type : "POST",
-            //         contentType: "application/json;charset=utf-8",
-            //         data : JSON.stringify(param),
-            //         dataType : "json",
-            //         success : function(ret) {
-            //             $(obj).parent().parent().find('.user-name').val('');
-            //             $(obj).parent().parent().find('.user-email').val('');
-            //             window.location.reload();
-            //         },
-            //         error:function(msg){
-                            
-            //         }
-            //       })
+            $.ajax({
+                    url : "/user/clear",
+                    type : "POST",
+                    contentType: "application/json;charset=utf-8",
+                    dataType : "json",
+                    success : function(ret) {
+                        alert("购物车已清空！");
+                        window.location.reload();
+                    },
+                    error:function(msg){
+
+                    }
+                  })
         }
         function submitFoodInfo(obj){
-            alert("已经下单！");
-            var foods = [];
-            $("#foodInfo div").each(function(){
-                var food = $(this).find("input").val();
-                foods.push(food);
-            });
-            alert(foods);
-            // $.ajax({
-            //         url : "/admin/createuser",
-            //         type : "POST",
-            //         contentType: "application/json;charset=utf-8",
-            //         data : JSON.stringify(param),
-            //         dataType : "json",
-            //         success : function(ret) {
-            //             $(obj).parent().parent().find('.user-name').val('');
-            //             $(obj).parent().parent().find('.user-email').val('');
-            //             window.location.reload();
-            //         },
-            //         error:function(msg){
-                            
-            //         }
-            //       }) 
-            // $("#foodInfo").empty();
+            $.ajax({
+                    url : "/user/submit",
+                    type : "POST",
+                    contentType: "application/json;charset=utf-8",
+                    dataType : "json",
+                    success : function(ret) {
+                        alert("下单成功！");
+                        window.location.reload();
+                    },
+                    error:function(msg){
+
+                    }
+                  })
         }
         $(document).ready(function() {
-            var userId=$(".userId").text();
-            alert(userId);
         });
     </script>
 
