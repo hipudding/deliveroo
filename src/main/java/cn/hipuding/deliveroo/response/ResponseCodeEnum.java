@@ -5,7 +5,8 @@ public enum ResponseCodeEnum {
     PWD_ERROR("user password is not correct",3),
     PARAMETER_ERROR("parameter is not corrent",4),
     ITEM_NOT_EXIST("target is not exist",5),
-    ACCESS_DENY("access deny",6);
+    ACCESS_DENY("access deny",6),
+    INSUFFICIENT_BALANCE("insufficient balance",7);
     // 成员变量
     private String desc;
     private int code;

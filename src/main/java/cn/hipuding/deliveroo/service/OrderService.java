@@ -68,6 +68,7 @@ public class OrderService {
         return orderDao.findByHQL(hql,sellerName,status);
     }
 
+
     public BaseResponse addCart(String userName, String goodsName){
         BaseResponse ret = new BaseResponse();
         if(StringUtils.isEmpty(goodsName) || StringUtils.isEmpty(userName)){
@@ -202,6 +203,7 @@ public class OrderService {
         return ret;
     }
 
+    @Transactional
     public BaseResponse submitCart(String userName){
         BaseResponse ret = new BaseResponse();
         if(StringUtils.isEmpty(userName)){
@@ -210,8 +212,29 @@ public class OrderService {
             return ret;
         }
 
+        double total = 0;
+        List<Order> orderList = getOrderByUser(userName,OrderStatus.IN_CART);
+        for(Order order: orderList){
+            total += order.getPrice();
+        }
+
+        User user = userService.getUser(userName);
+        if(total > user.getAccount()){
+            ret.setCode(ResponseCodeEnum.INSUFFICIENT_BALANCE.getCode());
+            ret.setReason(ResponseCodeEnum.INSUFFICIENT_BALANCE.getDesc());
+            return ret;
+        }
+
+        user.setAccount(user.getAccount() - total);
+        userService.saveUser(user);
+
         refreshCartTime(userName);
         changeStatusByStatus(userName,OrderStatus.IN_CART,OrderStatus.PENGDIN);
+
+
+
+
+
 
         ret.setCode(ResponseCodeEnum.OK.getCode());
         ret.setReason(ResponseCodeEnum.OK.getDesc());
