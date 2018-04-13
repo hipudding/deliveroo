@@ -3,12 +3,12 @@ package cn.hipuding.deliveroo.controller;
 import cn.hipuding.deliveroo.entity.Seller;
 import cn.hipuding.deliveroo.response.BaseResponse;
 import cn.hipuding.deliveroo.response.ResponseCodeEnum;
+import cn.hipuding.deliveroo.response.SellerResponse;
+import cn.hipuding.deliveroo.service.OrderService;
 import cn.hipuding.deliveroo.service.SellerService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,11 +20,20 @@ public class SellerRestController {
     @Autowired
     SellerService sellerService;
 
+    @Autowired
+    OrderService orderService;
+
 
     @RequestMapping(value = "/seller/register", method = RequestMethod.POST)
     public BaseResponse register(@RequestBody Seller seller){
-        sellerService.saveSeller(seller);
         BaseResponse ret = new BaseResponse();
+        if(seller == null || StringUtils.isEmpty(seller.getSellerName()) || StringUtils.isEmpty(seller.getPassword())){
+            ret.setCode(ResponseCodeEnum.PARAMETER_ERROR.getCode());
+            ret.setReason(ResponseCodeEnum.PARAMETER_ERROR.getDesc());
+            return ret;
+        }
+
+        sellerService.saveSeller(seller);
         ret.setCode(ResponseCodeEnum.OK.getCode());
         ret.setReason(ResponseCodeEnum.OK.getDesc());
         return ret;
@@ -44,20 +53,39 @@ public class SellerRestController {
         }
         else
         {
-            ret.setCode(ResponseCodeEnum.PWDERROR.getCode());
-            ret.setReason(ResponseCodeEnum.PWDERROR.getDesc());
+            ret.setCode(ResponseCodeEnum.PWD_ERROR.getCode());
+            ret.setReason(ResponseCodeEnum.PWD_ERROR.getDesc());
         }
         return ret;
     }
 
-    @RequestMapping(value = "/sellers", method = RequestMethod.GET)
-    public List<Seller> getSellers(){
-        List<Seller> sellers = sellerService.getAllSeller();
-        return sellers;
+    @RequestMapping(value = "/seller/all", method = RequestMethod.GET)
+    public SellerResponse getSellers(){
+        SellerResponse ret = new SellerResponse();
+        List<Seller> sellerList = sellerService.getAllSeller();
+        ret.setCode(ResponseCodeEnum.OK.getCode());
+        ret.setReason(ResponseCodeEnum.OK.getDesc());
+        ret.setSellerList(sellerList);
+        return ret;
     }
 
+    @RequestMapping(value = "/seller/finish/{id}", method = RequestMethod.POST)
+    public BaseResponse finishItem(@PathVariable String id, HttpServletRequest request){
+        HttpSession session = request.getSession(true);
+        //String sellerName = session.getAttribute("sellerName").toString();
 
+        String sellerName = "shitang";
 
+        return orderService.sellerFinishItem(sellerName,id);
+    }
 
+    @RequestMapping(value = "/seller/cancel/{id}", method = RequestMethod.POST)
+    public BaseResponse cancelItem(@PathVariable String id, HttpServletRequest request){
+        HttpSession session = request.getSession(true);
+        //String sellerName = session.getAttribute("sellerName").toString();
+        String sellerName = "shitang";
+
+        return orderService.sellerCancelItem(sellerName,id);
+    }
 
 }

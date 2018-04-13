@@ -6,15 +6,18 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity(name = "seller")
-@Table(appliesTo = "seller")
-public class Seller {
+@Entity(name = "goods")
+@Table(appliesTo = "goods")
+public class Goods {
     @Id
+    @Column(name = "goods_name")
+    private String goodsName;
+
+    @Column(name = "price")
+    private Double price;
+
     @Column(name = "seller_name")
     private String sellerName;
-
-    @Column(name = "account")
-    private double account;
 
     @Column(name = "info")
     private String describe;
@@ -22,8 +25,21 @@ public class Seller {
     @Column(name = "image")
     private String image;
 
-    @Column(name = "password")
-    private String password;
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
     public String getSellerName() {
         return sellerName;
@@ -31,14 +47,6 @@ public class Seller {
 
     public void setSellerName(String sellerName) {
         this.sellerName = sellerName;
-    }
-
-    public double getAccount() {
-        return account;
-    }
-
-    public void setAccount(double account) {
-        this.account = account;
     }
 
     public String getDescribe() {
@@ -55,13 +63,5 @@ public class Seller {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

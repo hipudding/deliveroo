@@ -13,7 +13,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
         // excludePathPatterns 用户排除拦截
         registry.addInterceptor(new UserInterceptor()).addPathPatterns("/user/**").excludePathPatterns("/user/login").excludePathPatterns("/user/doLogin");
         registry.addInterceptor(new SellerInterceptor()).addPathPatterns("/seller/**").excludePathPatterns("/seller/login").excludePathPatterns("/seller/doLogin");
-
+        registry.addInterceptor(new SellerInterceptor()).addPathPatterns("/goods/**");
         super.addInterceptors(registry);
     }
 }

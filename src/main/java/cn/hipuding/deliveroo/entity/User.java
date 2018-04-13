@@ -13,9 +13,6 @@ public class User {
     @Column(name = "user_name")
     private String userName;
 
-    @Column(name = "balance")
-    private Double balance;
-
     @Column(name = "phone_number")
     private String phoneNumber;
 
@@ -25,6 +22,16 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "account")
+    private double account;
+
+    public double getAccount() {
+        return account;
+    }
+
+    public void setAccount(double account) {
+        this.account = account;
+    }
 
     public String getUserName() {
         return userName;
@@ -34,13 +41,6 @@ public class User {
         this.userName = userName;
     }
 
-    public Double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(Double balance) {
-        this.balance = balance;
-    }
 
     public String getPhoneNumber() {
         return phoneNumber;

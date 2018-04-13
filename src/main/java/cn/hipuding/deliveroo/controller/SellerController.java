@@ -1,8 +1,11 @@
 package cn.hipuding.deliveroo.controller;
 
+import cn.hipuding.deliveroo.entity.Seller;
 import cn.hipuding.deliveroo.entity.User;
 import cn.hipuding.deliveroo.response.ResponseCodeEnum;
+import cn.hipuding.deliveroo.response.SellerResponse;
 import cn.hipuding.deliveroo.response.UserResponse;
+import cn.hipuding.deliveroo.service.SellerService;
 import cn.hipuding.deliveroo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,29 +19,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class UserController {
+public class SellerController {
 
     @Autowired
-    UserService userService;
+    SellerService sellerService;
 
 
-    @RequestMapping(value = "/user/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/seller/login", method = RequestMethod.GET)
     public String login(){
         return "userLogin";
     }
 
-    @RequestMapping(value = "/user/userInfo", method = RequestMethod.GET)
-    public String getUserInfo(Model model, HttpServletRequest request){
+    @RequestMapping(value = "/seller/userInfo", method = RequestMethod.GET)
+    public String getSellerInfo(Model model, HttpServletRequest request){
         HttpSession session = request.getSession(true);
-        String userName = session.getAttribute("userName").toString();
+        String userName = session.getAttribute("sellerName").toString();
 
-        UserResponse ret = new UserResponse();
-        User user = userService.getUser(userName);
-        List<User> userList = new ArrayList<>();
-        userList.add(user);
+        SellerResponse ret = new SellerResponse();
+        Seller seller = sellerService.getSeller(userName);
+        List<Seller> sellerList = new ArrayList<>();
+        sellerList.add(seller);
         ret.setCode(ResponseCodeEnum.OK.getCode());
         ret.setReason(ResponseCodeEnum.OK.getDesc());
-        ret.setUserList(userList);
+        ret.setSellerList(sellerList);
 
         model.addAttribute("response",ret);
         return "userInfo";

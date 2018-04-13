@@ -2,7 +2,10 @@ package cn.hipuding.deliveroo.response;
 
 public enum ResponseCodeEnum {
     OK("success", 0), ERROR("error", 1), UNKNOW("unknow", 2),
-    PWDERROR("user password is not correct",3);
+    PWD_ERROR("user password is not correct",3),
+    PARAMETER_ERROR("parameter is not corrent",4),
+    ITEM_NOT_EXIST("target is not exist",5),
+    ACCESS_DENY("access deny",6);
     // 成员变量
     private String desc;
     private int code;
