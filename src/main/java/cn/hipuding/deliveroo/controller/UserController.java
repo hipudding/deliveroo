@@ -34,11 +34,9 @@ public class UserController {
 
         UserResponse ret = new UserResponse();
         User user = userService.getUser(userName);
-        List<User> userList = new ArrayList<>();
-        userList.add(user);
         ret.setCode(ResponseCodeEnum.OK.getCode());
         ret.setReason(ResponseCodeEnum.OK.getDesc());
-        ret.setUserList(userList);
+        ret.setUser(user);
 
         model.addAttribute("response",ret);
         return "userInfo";

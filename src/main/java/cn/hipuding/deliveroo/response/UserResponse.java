@@ -7,13 +7,13 @@ import java.util.List;
 
 public class UserResponse extends BaseResponse{
 
-    List<User> userList;
+    User user;
 
-    public List<User> getUserList() {
-        return userList;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
