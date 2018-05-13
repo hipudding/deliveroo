@@ -1,16 +1,16 @@
 package cn.hipuding.deliveroo.controller;
 
 import cn.hipuding.deliveroo.entity.Goods;
+import cn.hipuding.deliveroo.response.BaseResponse;
 import cn.hipuding.deliveroo.response.GoodsResponse;
 import cn.hipuding.deliveroo.response.ResponseCodeEnum;
 import cn.hipuding.deliveroo.service.GoodsService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +58,23 @@ public class GoodsRestController {
     }
 
 
+    @RequestMapping(value = "/goods/add", method = RequestMethod.POST)
+    public GoodsResponse addGoods(@RequestBody Goods good, HttpServletRequest request){
+        GoodsResponse ret = new GoodsResponse();
+        HttpSession session = request.getSession(true);
+        String sellerName = session.getAttribute("sellerName").toString();
+        if(StringUtils.isEmpty(sellerName)){
+            ret.setCode(ResponseCodeEnum.PARAMETER_ERROR.getCode());
+            ret.setReason(ResponseCodeEnum.PARAMETER_ERROR.getDesc());
+            return ret;
+        }
+
+        ret.setCode(ResponseCodeEnum.OK.getCode());
+        ret.setReason(ResponseCodeEnum.OK.getDesc());
+        goodsService.saveGoods(good);
+
+        return ret;
+    }
 
 
 }

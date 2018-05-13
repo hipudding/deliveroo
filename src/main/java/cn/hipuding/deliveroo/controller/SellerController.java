@@ -27,10 +27,10 @@ public class SellerController {
 
     @RequestMapping(value = "/seller/login", method = RequestMethod.GET)
     public String login(){
-        return "userLogin";
+        return "sellerLogin";
     }
 
-    @RequestMapping(value = "/seller/userInfo", method = RequestMethod.GET)
+    @RequestMapping(value = "/seller/sellerInfo", method = RequestMethod.GET)
     public String getSellerInfo(Model model, HttpServletRequest request){
         HttpSession session = request.getSession(true);
         String userName = session.getAttribute("sellerName").toString();
@@ -44,7 +44,7 @@ public class SellerController {
         ret.setSellerList(sellerList);
 
         model.addAttribute("response",ret);
-        return "userInfo";
+        return "sellerInfo";
     }
 
 

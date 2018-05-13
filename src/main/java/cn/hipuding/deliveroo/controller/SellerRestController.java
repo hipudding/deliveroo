@@ -72,9 +72,7 @@ public class SellerRestController {
     @RequestMapping(value = "/seller/finish/{id}", method = RequestMethod.POST)
     public BaseResponse finishItem(@PathVariable String id, HttpServletRequest request){
         HttpSession session = request.getSession(true);
-        //String sellerName = session.getAttribute("sellerName").toString();
-
-        String sellerName = "shitang";
+        String sellerName = session.getAttribute("sellerName").toString();
 
         return orderService.sellerFinishItem(sellerName,id);
     }
@@ -82,10 +80,17 @@ public class SellerRestController {
     @RequestMapping(value = "/seller/cancel/{id}", method = RequestMethod.POST)
     public BaseResponse cancelItem(@PathVariable String id, HttpServletRequest request){
         HttpSession session = request.getSession(true);
-        //String sellerName = session.getAttribute("sellerName").toString();
-        String sellerName = "shitang";
+        String sellerName = session.getAttribute("sellerName").toString();
 
         return orderService.sellerCancelItem(sellerName,id);
+    }
+
+    @RequestMapping(value = "/seller/order", method = RequestMethod.GET)
+    public BaseResponse getSellerOrder(HttpServletRequest request){
+        HttpSession session = request.getSession(true);
+        String sellerName = session.getAttribute("sellerName").toString();
+
+        return orderService.getSellerPendingOrder(sellerName);
     }
 
 }
