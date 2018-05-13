@@ -35,7 +35,7 @@ spring:
 
 logging:
   level: info
-  file: ${log_path}/peccancy.log
+  file: ${log_path}/deliveroo.log
   root: INFO
 
 
