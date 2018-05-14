@@ -69,9 +69,23 @@ public class GoodsRestController {
             return ret;
         }
 
+        good.setSellerName(sellerName);
         ret.setCode(ResponseCodeEnum.OK.getCode());
         ret.setReason(ResponseCodeEnum.OK.getDesc());
         goodsService.saveGoods(good);
+
+        return ret;
+    }
+
+    @RequestMapping(value = "/goods/delete/{id}", method = RequestMethod.POST)
+    public GoodsResponse deleteGoods(@PathVariable String id, HttpServletRequest request){
+        GoodsResponse ret = new GoodsResponse();
+        HttpSession session = request.getSession(true);
+
+        goodsService.deleteGoods(id);
+
+        ret.setCode(ResponseCodeEnum.OK.getCode());
+        ret.setReason(ResponseCodeEnum.OK.getDesc());
 
         return ret;
     }

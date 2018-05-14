@@ -9,8 +9,18 @@ import java.util.Map;
 
 public class SellerResponse extends BaseResponse{
 
+    Seller seller;
     List<Seller> sellerList;
     Map<Seller, List<Goods>> allGoodsOfSeller;
+
+    public Seller getSeller() {
+        return seller;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
+    }
+
 
     public List<Seller> getSellerList() {
         return sellerList;

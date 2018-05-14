@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>校园美食送餐系统</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">校园美食送餐系统卖家版</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a href="/seller/sellerInfo"><i class="fa fa-dashboard fa-fw"></i>卖家信息</a>
+                        </li>
+                        <li>
+                            <a href="/seller/orderInfo"><i class="fa fa-bar-chart-o fa-fw"></i>订单列表</a>
+                        </li>
+                        <li  class="active">
+                            <a href="/seller/foodInfo"  class="active"><i class="fa fa-table fa-fw"></i>美食信息</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">商品信息</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel">
+						<div class="panel-heading">
+							<button class="btn btn-success" data-target="#myModal" data-toggle="modal">
+                                添加商品
+                            </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">完善添加商品信息</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table class="table table-striped">
+												<thead>
+												<tr>
+													<th>商品名称</th>
+													<th>商品价格</th>
+													<th>商品描述</th>
+												</tr>
+												</thead>
+												<tbody>
+												<tr th:each="goods : ${response.goodsList}">
+													<td><input type="text" id="goodsNameOfAdd"/></td>
+													<td><input type="text" id="goodsPrice"/></td>
+													<td><input type="text" id="goodsDesc"/></td>
+												</tr>
+												</tbody>
+											</table>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                            <button type="button" class="btn btn-primary"  data-dismiss="modal" onclick="addGoods(this)">提交保存</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>商品名称</th>
+										<th>商品价格</th>
+                                        <th>商品描述</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="goods : ${response.goodsList}">
+                                        <td th:text="${goods.goodsName}" class="goodsName">goodsName</td>
+                                        <td th:text="${goods.price}">price</td>
+                                        <td th:text="${goods.describe}">describe</td>
+										<td><button class="btn btn-danger" type="button" onclick="deleteGoods(this)">删除</button></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-lg-4 -->
+            </div>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+	
+	<script>
+        function deleteGoods(obj){
+            var goodsName = $(obj).parent().parent().find(".goodsName").text();
+            alert(goodsName);
+            $.ajax({
+                    url : "/goods/delete/"+goodsName,
+                    type : "POST",
+                    success : function(ret) {
+                        alert("该商品已删除！");
+						window.location.reload();
+                    },
+                    error:function(msg){
+                            
+                    }
+                  })
+        }
+		function addGoods(obj){
+            var goodsNameOfAdd = $(obj).parent().parent().find("#goodsNameOfAdd").val();
+			var goodsPrice = $(obj).parent().parent().find("#goodsPrice").val();
+			var goodsDesc = $(obj).parent().parent().find("#goodsDesc").val();
+            alert(goodsNameOfAdd+"-"+goodsPrice+"-"+goodsDesc);
+			var param = {};
+            param.goodsName = goodsNameOfAdd;
+            param.price = goodsPrice;
+            param.describe = goodsDesc;
+            $.ajax({
+                    url : "/goods/add",
+                    type : "POST",
+                    contentType: "application/json;charset=utf-8",
+                    data : JSON.stringify(param),
+                    dataType : "json",
+                    success : function(ret) {
+                        alert("添加成功！");
+						window.location.reload();
+                    },
+                    error:function(msg){
+                            
+                    }
+                  })
+        }
+        $(document).ready(function() {
+            
+        });
+
+
+	</script>
+
+</body>
+
+</html>

@@ -34,4 +34,9 @@ public class GoodsService {
         return goodsDao.findByHQL(hql,sellerName);
     }
 
+    public void deleteGoods(String id)
+    {
+        goodsDao.delete(id);
+    }
+
 }

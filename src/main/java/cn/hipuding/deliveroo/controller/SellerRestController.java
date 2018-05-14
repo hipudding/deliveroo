@@ -85,12 +85,4 @@ public class SellerRestController {
         return orderService.sellerCancelItem(sellerName,id);
     }
 
-    @RequestMapping(value = "/seller/order", method = RequestMethod.GET)
-    public BaseResponse getSellerOrder(HttpServletRequest request){
-        HttpSession session = request.getSession(true);
-        String sellerName = session.getAttribute("sellerName").toString();
-
-        return orderService.getSellerPendingOrder(sellerName);
-    }
-
 }
