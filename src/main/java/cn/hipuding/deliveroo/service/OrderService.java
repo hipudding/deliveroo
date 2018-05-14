@@ -137,12 +137,24 @@ public class OrderService {
             return ret;
         }
 
-
-
         List<Order> orderList = new ArrayList<>();
         orderList.addAll(getOrderByUser(userName,OrderStatus.CANCLED));
         orderList.addAll(getOrderByUser(userName,OrderStatus.PENGDIN));
         orderList.addAll(getOrderByUser(userName,OrderStatus.FINISHED));
+
+        for (Order order: orderList) {
+            switch (order.getStatus()){
+                case OrderStatus.CANCLED:
+                    order.setStatusStr("cancled");
+                    break;
+                case OrderStatus.FINISHED:
+                    order.setStatusStr("finished");
+                    break;
+                 case OrderStatus.PENGDIN:
+                     order.setStatusStr("pending");
+                     break;
+            }
+        }
 
         orderList.sort((Order o1, Order o2) -> {
             if (o1.getOrderTime().getTime() > o2.getOrderTime().getTime()) {

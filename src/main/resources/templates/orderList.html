@@ -122,7 +122,6 @@
                                         <th>食物名称</th>
 										<th>买家</th>
                                         <th>价格</th>
-                                        <th>状态</th>
                                         <th>接单</th>
                                         <th>取消</th>
                                     </tr>
@@ -133,7 +132,6 @@
                                         <td th:text="${order.goodsName}">1</td>
                                         <td th:text="${order.userName}">1</td>
                                         <td th:text="${order.price}">1</td>
-                                        <td th:text="${order.status}">1</td>
 										<td><button class="btn btn-success" type="button" onclick="acceptOrder(this)">接受</button></td>
 										<td><button class="btn btn-danger" type="button" onclick="cancelOrder(this)">拒绝</button></td>
                                     </tr>

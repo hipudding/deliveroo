@@ -35,6 +35,16 @@ public class Order {
     @Column(name = "price")
     private double price;
 
+    private String statusStr;
+
+    public String getStatusStr() {
+        return statusStr;
+    }
+
+    public void setStatusStr(String statusStr) {
+        this.statusStr = statusStr;
+    }
+
     public String getOrderId() {
         return orderId;
     }
